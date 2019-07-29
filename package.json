@@ -29,8 +29,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "hooks": {
@@ -113,7 +112,6 @@
     "rollup-plugin-typescript2": "^0.22.1",
     "semantic-release": "^15.13.18",
     "shelljs": "^0.8.3",
-    "travis-deploy-once": "^5.0.11",
     "ts-jest": "^23.1.4",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
