@@ -5,17 +5,17 @@ import {
   createQuery,
   Event,
   createEvent
-} from '../src/reactive-commons'
+} from '../../src/reactive-commons'
 
 describe(`Message factory`, () => {
   it(`builds valid command instances`, () => {
     const expected = {
       id: '123',
-      name: 'microservice.executeTask',
+      name: 'myContext.executeTask',
       data: 'withThisParam'
     }
 
-    const creator = createCommand('microservice.executeTask')
+    const creator = createCommand('myContext.executeTask')
     const result = creator('123', 'withThisParam')
 
     expect(result).toMatchObject(expected)
@@ -25,11 +25,11 @@ describe(`Message factory`, () => {
   it(`builds valid query instances`, () => {
     const expected = {
       id: '123',
-      name: 'microservice.fetchSomething',
+      name: 'myContext.fetchSomething',
       data: 'withThisParam'
     }
 
-    const creator = createQuery('microservice.fetchSomething')
+    const creator = createQuery('myContext.fetchSomething')
     const result = creator('123', 'withThisParam')
 
     expect(result).toMatchObject(expected)
@@ -39,11 +39,11 @@ describe(`Message factory`, () => {
   it(`builds valid query instances`, () => {
     const expected = {
       id: '123',
-      name: 'microservice.somethingHappened',
+      name: 'myContext.somethingHappened',
       data: 'withThisData'
     }
 
-    const creator = createEvent('microservice.somethingHappened')
+    const creator = createEvent('myContext.somethingHappened')
     const result = creator('123', 'withThisData')
 
     expect(result).toMatchObject(expected)
