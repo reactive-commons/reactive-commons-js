@@ -4,7 +4,7 @@ import { ConfirmChannel } from 'amqplib'
 import {
   BrokerSender,
   QueueSpecitication,
-  ExchangeSpecification,
+  TopicSpecification,
   BindingSpecification
 } from '../../domain/model/broker.model'
 
@@ -15,7 +15,7 @@ export class AmqpSender implements BrokerSender {
     return this.channel.addSetup((channel: ConfirmChannel) => channel.assertQueue(name, rest))
   }
 
-  declareTopic({ name }: ExchangeSpecification): Promise<void> {
+  declareTopic({ name }: TopicSpecification): Promise<void> {
     return this.channel.addSetup((channel: ConfirmChannel) => channel.assertExchange(name, 'topic'))
   }
 

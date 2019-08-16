@@ -3,9 +3,10 @@ import { ChannelWrapper } from 'amqp-connection-manager'
 import { AmqpReceiver } from '../../src/adapter/amqp/amqp-receiver'
 import { ConfirmChannel, ConsumeMessage, Message } from 'amqplib'
 
+const queueName = 'myQueue'
+const messageContent = Buffer.from('{"foo": "bar"}', 'utf8')
+
 describe(`AMQP receiver`, () => {
-  const queueName = 'myQueue'
-  const messageContent = Buffer.from('{"foo": "bar"}', 'utf8')
   let addSetupMock: jest.MockedFunction<
     (func: (channel: ConfirmChannel) => Promise<void>) => Promise<void>
   >

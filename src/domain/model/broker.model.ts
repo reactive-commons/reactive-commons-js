@@ -3,7 +3,7 @@ export interface QueueSpecitication {
   exclusive: boolean
 }
 
-export interface ExchangeSpecification {
+export interface TopicSpecification {
   name: string
 }
 
@@ -23,7 +23,7 @@ export type MessageConsumer = (messageContent: object) => Promise<void>
 export interface BrokerSender {
   declareQueue(specification: QueueSpecitication): Promise<void>
 
-  declareTopic(specification: ExchangeSpecification): Promise<void>
+  declareTopic(specification: TopicSpecification): Promise<void>
 
   bind(specification: BindingSpecification): Promise<void>
 }
