@@ -125,7 +125,6 @@
   "dependencies": {
     "amqp-connection-manager": "^3.0.0",
     "amqplib": "^0.5.5",
-    "lodash": "^4.17.15",
     "uuid": "^3.3.2"
   }
 }
