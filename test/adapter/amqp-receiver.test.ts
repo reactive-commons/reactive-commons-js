@@ -1,7 +1,7 @@
 import { ChannelWrapper } from 'amqp-connection-manager'
+import { ConfirmChannel, ConsumeMessage } from 'amqplib'
 
-import { AmqpReceiver } from '../../src/adapter/amqp/amqp-receiver'
-import { ConfirmChannel, ConsumeMessage, Message } from 'amqplib'
+import { AmqpReceiver } from '../../src'
 
 const queueName = 'myQueue'
 const messageContent = Buffer.from('{"foo": "bar"}', 'utf8')
@@ -24,12 +24,15 @@ describe(`AMQP receiver`, () => {
     receiver = new AmqpReceiver(channelWrapper)
   })
 
-  it(`it consumes the passed queue and ack them`, async () => {
+  it(`it consumes the passed queue and ack the recived messages`, async () => {
     const ackMock = jest.fn(message => undefined)
     const channel = ({ consume: consumeMock, ack: ackMock } as any) as ConfirmChannel
     const consumer = jest.fn(messageContent => Promise.resolve())
     const message = ({
-      content: messageContent
+      content: messageContent,
+      properties: {
+        headers: {}
+      }
     } as any) as ConsumeMessage
 
     await receiver.consume(queueName, consumer)
@@ -44,7 +47,10 @@ describe(`AMQP receiver`, () => {
     const channel = ({ consume: consumeMock, nack: nackMock } as any) as ConfirmChannel
     const consumer = jest.fn(messageContent => Promise.reject(Error('something wrong happened')))
     const message = ({
-      content: messageContent
+      content: messageContent,
+      properties: {
+        headers: {}
+      }
     } as any) as ConsumeMessage
 
     await receiver.consume(queueName, consumer)

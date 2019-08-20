@@ -1,5 +1,5 @@
-import { MessageCreator } from './model/message-creator.model'
-import { Command, Query, Event } from './model/messages.model'
+import { MessageCreator } from '../model/message-creator.model'
+import { Command, Query, Event } from '../model/messages.model'
 
 export function createCommand<T>(name: string): MessageCreator<Command<T>, T> {
   return (id: string, data: T) => new Command(id, name, data)

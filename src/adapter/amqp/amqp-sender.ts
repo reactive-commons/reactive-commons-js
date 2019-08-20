@@ -1,12 +1,11 @@
 import { ChannelWrapper } from 'amqp-connection-manager'
 import { ConfirmChannel } from 'amqplib'
-
+import { BrokerSender, Headers, Message } from '../../domain/model/broker.model'
 import {
-  BrokerSender,
+  BindingSpecification,
   QueueSpecitication,
-  TopicSpecification,
-  BindingSpecification
-} from '../../domain/model/broker.model'
+  TopicSpecification
+} from '../../domain/model/resources.model'
 
 export class AmqpSender implements BrokerSender {
   constructor(private channel: ChannelWrapper) {}
@@ -15,8 +14,8 @@ export class AmqpSender implements BrokerSender {
     return this.channel.addSetup((channel: ConfirmChannel) => channel.assertQueue(name, rest))
   }
 
-  declareTopic({ name }: TopicSpecification): Promise<void> {
-    return this.channel.addSetup((channel: ConfirmChannel) => channel.assertExchange(name, 'topic'))
+  declareTopic({ name, type }: TopicSpecification): Promise<void> {
+    return this.channel.addSetup((channel: ConfirmChannel) => channel.assertExchange(name, type))
   }
 
   bind({ queue, topic, routingKey }: BindingSpecification): Promise<void> {
@@ -25,9 +24,11 @@ export class AmqpSender implements BrokerSender {
     )
   }
 
-  publish(topic: string, routingKey: string, content: object) {
-    return this.channel.publish(topic, routingKey, content as Buffer, {
-      deliveryMode: 2
+  publish<T>(topic: string, routingKey: string, message: Message<T>): Promise<void> {
+    const content = Buffer.from(JSON.stringify(message.data))
+    return this.channel.publish(topic, routingKey, content, {
+      deliveryMode: 2,
+      headers: message.headers
     })
   }
 }

@@ -1,4 +1,4 @@
-import { HandlerRegistry } from '../../src/domain/handler-registry'
+import { HandlerRegistry, Command, Query, Event } from '../../src'
 
 describe(`Handler registry`, () => {
   it(`creates a valid instance using register`, () => {
@@ -11,7 +11,7 @@ describe(`Handler registry`, () => {
     const registry = HandlerRegistry.register()
 
     const commandName = 'myContext.command'
-    const handler = (m: string) => Promise.resolve()
+    const handler = (m: Command<string>) => Promise.resolve()
 
     registry.handleCommand(commandName, handler)
 
@@ -22,8 +22,8 @@ describe(`Handler registry`, () => {
     const registry = HandlerRegistry.register()
 
     const commandName = 'myContext.command'
-    const handler1 = (m: string) => Promise.resolve()
-    const handler2 = (m: string) => Promise.resolve()
+    const handler1 = (m: Command<string>) => Promise.resolve()
+    const handler2 = (m: Command<string>) => Promise.resolve()
 
     registry.handleCommand(commandName, handler1)
     registry.handleCommand(commandName, handler2)
@@ -35,7 +35,7 @@ describe(`Handler registry`, () => {
     const registry = HandlerRegistry.register()
 
     const queryName = 'myContext.query'
-    const handler = (m: string) => Promise.resolve('result')
+    const handler = (m: Query<string>) => Promise.resolve('result')
 
     registry.serverQuery(queryName, handler)
 
@@ -46,7 +46,7 @@ describe(`Handler registry`, () => {
     const registry = HandlerRegistry.register()
 
     const eventName = 'myContext.event'
-    const handler = (m: string) => Promise.resolve()
+    const handler = (m: Event<string>) => Promise.resolve()
 
     registry.listenEvent(eventName, handler)
 

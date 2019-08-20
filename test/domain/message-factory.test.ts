@@ -1,16 +1,9 @@
-import {
-  Command,
-  createCommand,
-  Query,
-  createQuery,
-  Event,
-  createEvent
-} from '../../src/reactive-commons'
+import { Command, createCommand, Query, createQuery, Event, createEvent } from '../../src'
 
 describe(`Message factory`, () => {
   it(`builds valid command instances`, () => {
-    const expected = {
-      id: '123',
+    const expected: Command<string> = {
+      commandId: '123',
       name: 'myContext.executeTask',
       data: 'withThisParam'
     }
@@ -23,10 +16,10 @@ describe(`Message factory`, () => {
   })
 
   it(`builds valid query instances`, () => {
-    const expected = {
-      id: '123',
-      name: 'myContext.fetchSomething',
-      data: 'withThisParam'
+    const expected: Query<string> = {
+      queryId: '123',
+      resource: 'myContext.fetchSomething',
+      queryData: 'withThisParam'
     }
 
     const creator = createQuery('myContext.fetchSomething')
@@ -36,9 +29,9 @@ describe(`Message factory`, () => {
     expect(result).toBeInstanceOf(Query)
   })
 
-  it(`builds valid query instances`, () => {
-    const expected = {
-      id: '123',
+  it(`builds valid event instances`, () => {
+    const expected: Event<string> = {
+      eventId: '123',
       name: 'myContext.somethingHappened',
       data: 'withThisData'
     }

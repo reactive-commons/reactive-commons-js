@@ -10,7 +10,7 @@ const pkg = require('./package.json')
 const libraryName = 'reactive-commons'
 
 export default {
-  input: `src/${libraryName}.ts`,
+  input: `src/index.ts`,
   output: [
     { file: pkg.main, name: camelCase(libraryName), format: 'cjs', sourcemap: true },
     { file: pkg.module, format: 'esm', sourcemap: true }
@@ -19,7 +19,9 @@ export default {
   external: [
     'amqplib',
     'amqp-connection-manager',
-    'uuid'
+    'uuid',
+    'url',
+    'events'
   ],
   watch: {
     include: 'src/**'

@@ -1,12 +1,13 @@
-import { AmqpSender } from '../../src/adapter/amqp/amqp-sender'
-
-import { ConfirmChannel } from 'amqplib'
 import { ChannelWrapper } from 'amqp-connection-manager'
+import { ConfirmChannel } from 'amqplib'
 import {
+  BindingSpecification,
+  createEvent,
   QueueSpecitication,
-  TopicSpecification,
-  BindingSpecification
-} from '../../src/domain/model/broker.model'
+  TopicSpecification
+} from '../../src'
+import { AmqpSender } from '../../src/adapter/amqp/amqp-sender'
+import { Message } from '../../src/domain/model/broker.model'
 
 const queueName = 'myQueue'
 const topicName = 'mytopic'
@@ -50,7 +51,8 @@ describe(`AMQP sender`, () => {
 
   it(`declares a topic`, async () => {
     const topic: TopicSpecification = {
-      name: topicName
+      name: topicName,
+      type: 'direct'
     }
 
     const assertExchangeMock = jest.fn((name, type) => undefined)
@@ -60,7 +62,7 @@ describe(`AMQP sender`, () => {
     await addSetupMock.mock.calls[0][0](channel)
 
     expect(assertExchangeMock.mock.calls[0][0]).toBe(topicName)
-    expect(assertExchangeMock.mock.calls[0][1]).toEqual('topic')
+    expect(assertExchangeMock.mock.calls[0][1]).toBe(topic.type)
   })
 
   it(`do a binding`, async () => {
@@ -81,11 +83,18 @@ describe(`AMQP sender`, () => {
     expect(bindQueueMock.mock.calls[0][2]).toEqual(routingKey)
   })
 
-  it(`publish messages`, async () => {
-    await sender.publish(topicName, routingKey, { foo: 'bar' })
+  it(`publish serialized messages`, async () => {
+    const creator = createEvent('myContext.somethingHappened')
+    const event = creator('123', 'withThisData')
+    const serialized = Buffer.from(
+      '{"eventId":"123","name":"myContext.somethingHappened","data":"withThisData"}'
+    )
+    const message = new Message(event)
+
+    await sender.publish(topicName, routingKey, message)
 
     expect(publishMock.mock.calls[0][0]).toBe(topicName)
     expect(publishMock.mock.calls[0][1]).toBe(routingKey)
-    expect(publishMock.mock.calls[0][2]).toStrictEqual({ foo: 'bar' })
+    expect(publishMock.mock.calls[0][2]).toStrictEqual(serialized)
   })
 })

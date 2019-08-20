@@ -1,17 +1,11 @@
-export class Message<T> {
-  id: string
-  name: string
-  data: T
-
-  constructor(id: string, name: string, data: T) {
-    this.id = id
-    this.name = name
-    this.data = data
-  }
+export class Command<T> {
+  constructor(public commandId: string, public name: string, public data: T) {}
 }
 
-export class Command<T> extends Message<T> {}
+export class Query<T> {
+  constructor(public queryId: string, public resource: string, public queryData: T) {}
+}
 
-export class Query<T> extends Message<T> {}
-
-export class Event<T> extends Message<T> {}
+export class Event<T> {
+  constructor(public eventId: string, public name: string, public data: T) {}
+}

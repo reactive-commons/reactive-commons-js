@@ -1,24 +1,25 @@
-export interface QueueSpecitication {
-  name: string
-  exclusive: boolean
-}
-
-export interface TopicSpecification {
-  name: string
-}
-
-export interface BindingSpecification {
-  queue: string
-  topic: string
-  routingKey: string
-}
+import { BindingSpecification, QueueSpecitication, TopicSpecification } from './resources.model'
+import { EventBus } from '../api/emitters/event-bus'
 
 export interface Connection {
+  id: string
+  sender: BrokerSender
+  receiver: BrokerReceiver
+  eventBus: EventBus
+
   onConnect(listener: (event: { host: string }) => void): void
   onDisconnect(listener: (err: Error) => void): void
 }
 
-export type MessageConsumer = (messageContent: object) => Promise<void>
+export type MessageConsumer<T> = (messageContent: Message<T>) => Promise<void>
+
+export type Headers = {
+  [name: string]: string
+}
+
+export class Message<T> {
+  constructor(public data: T, public headers: Headers = {}) {}
+}
 
 export interface BrokerSender {
   declareQueue(specification: QueueSpecitication): Promise<void>
@@ -26,14 +27,14 @@ export interface BrokerSender {
   declareTopic(specification: TopicSpecification): Promise<void>
 
   bind(specification: BindingSpecification): Promise<void>
+
+  publish<T>(topic: string, routingKey: string, message: Message<T>): Promise<void>
 }
 
 export interface BrokerReceiver {
-  consume(queueName: string, consumer: MessageConsumer): Promise<void>
+  consume<T>(queueName: string, consumer: MessageConsumer<T>): Promise<void>
 }
 
 export interface Broker {
   connect(): Connection
-  getSender(): BrokerSender
-  getReceiver(): BrokerReceiver
 }
