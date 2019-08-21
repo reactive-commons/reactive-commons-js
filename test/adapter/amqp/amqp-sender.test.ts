@@ -4,10 +4,10 @@ import {
   BindingSpecification,
   createEvent,
   QueueSpecitication,
-  TopicSpecification
-} from '../../src'
-import { AmqpSender } from '../../src/adapter/amqp/amqp-sender'
-import { Message } from '../../src/domain/model/broker.model'
+  TopicSpecification,
+  AmqpSender,
+  Message
+} from '../../../src'
 
 const queueName = 'myQueue'
 const topicName = 'mytopic'

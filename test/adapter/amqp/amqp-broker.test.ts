@@ -1,10 +1,10 @@
 import { connect } from 'amqp-connection-manager'
 import { ConnectionOptions } from 'tls'
-import { AmqpBroker } from '../../src'
-import { AmqpConnection } from '../../src/adapter/amqp/amqp-connection'
+import { AmqpBroker } from '../../../src'
+import { AmqpConnection } from '../../../src/adapter/amqp/amqp-connection'
 
 jest.mock('amqp-connection-manager')
-jest.mock('../../src/adapter/amqp/amqp-connection')
+jest.mock('../../../src/adapter/amqp/amqp-connection')
 
 const url = 'amqp://myrabbitserver'
 const options: ConnectionOptions = { timeout: 10 }

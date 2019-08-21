@@ -9,7 +9,7 @@ import { EventEmitter } from 'events'
 export class HandlerRegistry {
   private _commandHandlers: HandlerRegistryRoutes<CommandHandler<any>> = {}
   private _queryHandlers: HandlerRegistryRoutes<QueryHandler<any, any>> = {}
-  private _eventListeners: HandlerRegistryRoutes<EventListener<any>> = {}
+  private _eventListeners: HandlerRegistryRoutes<Array<EventListener<any>>> = {}
   private eventListenersUpdates: EventEmitter
 
   get commandHandlers() {
@@ -32,12 +32,12 @@ export class HandlerRegistry {
     return new HandlerRegistry()
   }
 
-  public getCommandHandlers<M>(name: string): CommandHandler<M>[] {
-    return this.commandHandlers[name] || []
+  public getCommandHandler<M>(name: string): CommandHandler<M> {
+    return this.commandHandlers[name]
   }
 
-  public getQueryHandlers<M, R>(resource: string): QueryHandler<M, R>[] {
-    return this.queryHandlers[resource] || []
+  public getQueryHandler<M, R>(resource: string): QueryHandler<M, R> {
+    return this.queryHandlers[resource]
   }
 
   public getEventListeners<M>(name: string): EventListener<M>[] {
@@ -45,11 +45,19 @@ export class HandlerRegistry {
   }
 
   public handleCommand<M>(name: string, handler: CommandHandler<M>): void {
-    this.push(this.commandHandlers, name, handler)
+    if (this.commandHandlers[name]) {
+      throw new Error(`Command ${name} already registered`)
+    }
+
+    this.commandHandlers[name] = handler
   }
 
-  public serverQuery<M, R>(resource: string, handler: QueryHandler<M, R>): void {
-    this.push(this.queryHandlers, resource, handler)
+  public serveQuery<M, R>(resource: string, handler: QueryHandler<M, R>): void {
+    if (this.queryHandlers[resource]) {
+      throw new Error(`Query ${resource} already registered`)
+    }
+
+    this.queryHandlers[resource] = handler
   }
 
   public listenEvent<M>(name: string, listener: EventListener<M>): void {
@@ -61,7 +69,7 @@ export class HandlerRegistry {
     this.eventListenersUpdates.on('eventListenerPushed', handle)
   }
 
-  private push<H>(routes: HandlerRegistryRoutes<H>, path: string, handler: H) {
+  private push<H>(routes: HandlerRegistryRoutes<Array<H>>, path: string, handler: H) {
     if (!routes[path]) {
       routes[path] = []
     }

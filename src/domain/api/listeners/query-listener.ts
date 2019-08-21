@@ -28,11 +28,9 @@ export class QueryListener {
       `${this.config.appName}.queries`,
       message => {
         const query = message.data
-        const handlers = this.registry
-          .getQueryHandlers(query.resource)
-          .map(handler => handler(query).then(response => this.publishResponse(message, response)))
+        const handler = this.registry.getQueryHandler(query.resource)
 
-        return Promise.all(handlers).then()
+        return handler(query).then(response => this.publishResponse(message, response))
       }
     )
   }

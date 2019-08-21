@@ -7,26 +7,26 @@ const app = new ReactiveCommons(broker, registry, {
 })
 
 registry.listenEvent<string>('myInstance.appCreated', event => {
-  console.log(`Evento recibido: ${event.data}`)
+  console.log(`Event received: ${event.data}`)
   return Promise.resolve()
 })
 
-registry.serverQuery<string, string>('cosa.traeme', request => {
+registry.serveQuery<string, string>('cosa.traeme', request => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => resolve('holiii ' + request.queryData), 0)
+    setTimeout(() => resolve('hi ' + request.queryData), 0)
   })
 })
 
 app
   .start()
   .then(connection => {
-    connection.onConnect(() => console.log('Nos conectamos mi pana'))
+    connection.onConnect(() => console.log('Connection stablished'))
     connection.onDisconnect(err => console.error(err))
 
     const appCreated = createEvent<string>('myInstance.appCreated')
     connection.eventBus
-      .emit(appCreated('133', 'holi'))
+      .emit(appCreated('133', 'myApp'))
       .then(() => console.log('this will succeed'))
       .catch(err => console.error(err))
   })
-  .catch(err => console.error(`Esto se puteó`, err))
+  .catch(err => console.error('Error initializing app', err))

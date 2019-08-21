@@ -1,5 +1,11 @@
 import { AmqpConnectionManager } from 'amqp-connection-manager'
-import { AmqpConnection, AmqpSender, AmqpReceiver } from '../../src'
+import { AmqpConnection, AmqpReceiver, AmqpSender } from '../../../src'
+import { EventBus } from '../../../src/domain/api/emitters/event-bus'
+
+jest.mock('../../../src/domain/api/emitters/event-bus')
+jest.mock('../../../src/adapter/amqp/amqp-sender')
+jest.mock('../../../src/adapter/amqp/amqp-receiver')
+
 
 describe(`AMQP connection`, () => {
   let createChannelMock
@@ -27,6 +33,12 @@ describe(`AMQP connection`, () => {
     const receiver = connection.receiver
 
     expect(receiver).toBeInstanceOf(AmqpReceiver)
+  })
+
+  it(`creates EventBus instance`, () => {
+    const receiver = connection.eventBus
+
+    expect(receiver).toBeInstanceOf(EventBus)
   })
 
   it(`calls onConnect callback when connectionManager emits it`, () => {

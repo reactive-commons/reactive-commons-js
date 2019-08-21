@@ -1,7 +1,7 @@
 import { ChannelWrapper } from 'amqp-connection-manager'
 import { ConfirmChannel, ConsumeMessage } from 'amqplib'
 
-import { AmqpReceiver } from '../../src'
+import { AmqpReceiver } from '../../../src'
 
 const queueName = 'myQueue'
 const messageContent = Buffer.from('{"foo": "bar"}', 'utf8')
