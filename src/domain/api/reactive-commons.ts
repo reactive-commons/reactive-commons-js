@@ -26,7 +26,7 @@ export class ReactiveCommons {
       new CommandListener(this.config, connection, this.registry)
     ]
 
-    const context = new ReactiveCommonsContext(connection)
+    const context = new ReactiveCommonsContext(this.config, connection)
 
     return Promise.all(
       messageListeners.map(listener =>

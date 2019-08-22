@@ -1,6 +1,6 @@
 import { ChannelWrapper } from 'amqp-connection-manager'
 import { ConfirmChannel } from 'amqplib'
-import { BrokerSender, Headers, Message } from '../../domain/model/broker.model'
+import { BrokerSender, Message } from '../../domain/model/broker.model'
 import {
   BindingSpecification,
   QueueSpecitication,
@@ -28,7 +28,7 @@ export class AmqpSender implements BrokerSender {
     const content = Buffer.from(JSON.stringify(message.data))
     return this.channel.publish(topic, routingKey, content, {
       deliveryMode: 2,
-      headers: message.headers
+      ...message.properties
     })
   }
 }

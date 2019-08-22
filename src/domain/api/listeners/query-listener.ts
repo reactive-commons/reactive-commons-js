@@ -37,8 +37,8 @@ export class QueryListener implements MessageListener {
   }
 
   private publishResponse(request: Message<Query<unknown>>, response: any): Promise<void> {
-    const replyId = request.headers[REPLY_ID]
-    const correlationId = request.headers[CORRELATION_ID]
+    const replyId = request.properties.headers[REPLY_ID]
+    const correlationId = request.properties.headers[CORRELATION_ID]
     const responseHeaders: Headers = {
       [CORRELATION_ID]: correlationId
     }
@@ -50,7 +50,9 @@ export class QueryListener implements MessageListener {
     return this.connection.sender.publish(
       'globalReply',
       replyId,
-      new Message(response, responseHeaders)
+      new Message(response, {
+        headers: responseHeaders
+      })
     )
   }
 

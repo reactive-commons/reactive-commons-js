@@ -12,12 +12,25 @@ export interface Connection {
 
 export type MessageConsumer<T> = (messageContent: Message<T>) => Promise<void>
 
-export type Headers = {
+export interface Headers {
   [name: string]: string
 }
 
+export interface Properties {
+  contentType?: string
+  contentEncoding?: string
+  headers: Headers
+  correlationId?: string
+  replyTo?: string
+  messageId?: string
+  timestamp?: number
+  type?: string
+  userId?: string
+  appId?: string
+}
+
 export class Message<T> {
-  constructor(public data: T, public headers: Headers = {}) {}
+  constructor(public data: T, public properties: Properties = { headers: {} }) {}
 }
 
 export interface BrokerSender {

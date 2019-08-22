@@ -8,10 +8,10 @@ export class AmqpReceiver implements BrokerReceiver {
 
   async consume<T>(queueName: string, consumer: MessageConsumer<T>): Promise<void> {
     await this.channel.addSetup((channel: ConfirmChannel) => {
-      return channel.consume(queueName, message => {
+      return channel.consume(queueName, (message: any) => {
         if (message) {
           consumer({
-            headers: message.properties.headers,
+            properties: message.properties,
             data: JSON.parse(message.content.toString())
           })
             .then(() => channel.ack(message))

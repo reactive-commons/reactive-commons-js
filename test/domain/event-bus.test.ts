@@ -1,5 +1,8 @@
 import { EventBus } from '../../src/domain/api/emitters/event-bus'
 import { BrokerSender, Message } from '../../src/domain/model/broker.model'
+import { now } from '../../src/domain/api/time-provider'
+
+jest.mock('../../src/domain/api/time-provider')
 
 describe(`event bus`, () => {
   it(`publishes events on passed topic`, async () => {
@@ -9,6 +12,8 @@ describe(`event bus`, () => {
     } as any) as BrokerSender
 
     const mockedPublish = sender.publish as jest.MockedFunction<typeof sender.publish>
+    const mockedNow = now as jest.MockedFunction<typeof now>
+    mockedNow.mockReturnValue(123)
 
     const event = {
       eventId: '123',
@@ -16,9 +21,19 @@ describe(`event bus`, () => {
       data: 'bar'
     }
 
-    const message = new Message(event, {})
+    const config = {
+      appName: 'myApp'
+    }
 
-    const eventBus = new EventBus(sender, topicName)
+    const message = new Message(event, {
+      appId: 'myApp',
+      timestamp: 123,
+      headers: {
+        sourceApplication: 'myApp'
+      }
+    })
+
+    const eventBus = new EventBus(config, sender, topicName)
 
     await eventBus.emit(event)
 
