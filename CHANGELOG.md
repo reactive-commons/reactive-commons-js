@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/reactive-commons/reactive-commons-js/compare/v1.1.0...v1.2.0) (2019-08-22)
+
+
+### Features
+
+* **message-properties:** add properties to emitted messages ([a168690](https://github.com/reactive-commons/reactive-commons-js/commit/a168690))
+
 # [1.1.0](https://github.com/reactive-commons/reactive-commons-js/compare/v1.0.0...v1.1.0) (2019-08-22)
 
 
