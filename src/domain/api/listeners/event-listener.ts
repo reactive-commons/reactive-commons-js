@@ -1,9 +1,10 @@
 import { Connection } from '../../model/broker.model'
+import { MessageListener } from '../../model/message-listener.model'
+import { Event } from '../../model/messages.model'
 import { HandlerRegistry } from '../handler-registry'
 import { ReactiveCommonsConfiguration } from '../reactive-commons'
-import { Event } from '../../model/messages.model'
 
-export class EventListener {
+export class EventListener implements MessageListener {
   constructor(
     private config: ReactiveCommonsConfiguration,
     private connection: Connection,

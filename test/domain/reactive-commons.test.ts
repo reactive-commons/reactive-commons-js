@@ -4,6 +4,8 @@ import { EventListener } from '../../src/domain/api/listeners/event-listener'
 
 jest.mock('../../src/domain/api/listeners/query-listener')
 jest.mock('../../src/domain/api/listeners/event-listener')
+jest.mock('../../src/domain/api/listeners/command-listener')
+jest.mock('../../src/domain/api/reactive-commons-context')
 
 describe(`Reactive commons`, () => {
   it(`instantiate listeners and connection on start`, async () => {

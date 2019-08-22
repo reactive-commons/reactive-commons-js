@@ -4,7 +4,6 @@ import { v4 as uuid } from 'uuid'
 import { Connection } from '../../domain/model/broker.model'
 import { AmqpReceiver } from './amqp-receiver'
 import { AmqpSender } from './amqp-sender'
-import { EventBus } from '../../domain/api/emitters/event-bus'
 
 export class AmqpConnection implements Connection {
   public id: string
@@ -12,7 +11,6 @@ export class AmqpConnection implements Connection {
   private channel: ChannelWrapper
   private _sender: AmqpSender
   private _receiver: AmqpReceiver
-  private _eventBus: EventBus
 
   get sender() {
     return this._sender
@@ -20,10 +18,6 @@ export class AmqpConnection implements Connection {
 
   get receiver() {
     return this._receiver
-  }
-
-  get eventBus() {
-    return this._eventBus
   }
 
   constructor(private connectionManager: AmqpConnectionManager) {
@@ -35,7 +29,6 @@ export class AmqpConnection implements Connection {
 
     this._sender = new AmqpSender(this.channel)
     this._receiver = new AmqpReceiver(this.channel)
-    this._eventBus = new EventBus(this._sender, 'domainEvents')
   }
 
   onConnect(listener: (event: { host: string }) => void) {

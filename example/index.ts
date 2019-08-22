@@ -19,12 +19,12 @@ registry.serveQuery<string, string>('cosa.traeme', request => {
 
 app
   .start()
-  .then(connection => {
-    connection.onConnect(() => console.log('Connection stablished'))
-    connection.onDisconnect(err => console.error(err))
+  .then(context => {
+    context.connection.onConnect(() => console.log('Connection stablished'))
+    context.connection.onDisconnect(err => console.error(err))
 
     const appCreated = createEvent<string>('myInstance.appCreated')
-    connection.eventBus
+    context.eventBus
       .emit(appCreated('133', 'myApp'))
       .then(() => console.log('this will succeed'))
       .catch(err => console.error(err))

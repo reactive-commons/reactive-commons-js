@@ -5,7 +5,6 @@ export interface Connection {
   id: string
   sender: BrokerSender
   receiver: BrokerReceiver
-  eventBus: EventBus
 
   onConnect(listener: (event: { host: string }) => void): void
   onDisconnect(listener: (err: Error) => void): void

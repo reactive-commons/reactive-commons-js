@@ -1,10 +1,11 @@
 import { Connection, Headers, Message } from '../../model/broker.model'
+import { COMPLETION_ONLY_SIGNAL, CORRELATION_ID, REPLY_ID } from '../../model/headers.model'
+import { MessageListener } from '../../model/message-listener.model'
 import { Query } from '../../model/messages.model'
 import { HandlerRegistry } from '../handler-registry'
 import { ReactiveCommonsConfiguration } from '../reactive-commons'
-import { REPLY_ID, CORRELATION_ID, COMPLETION_ONLY_SIGNAL } from '../../model/headers.model'
 
-export class QueryListener {
+export class QueryListener implements MessageListener {
   constructor(
     private config: ReactiveCommonsConfiguration,
     private connection: Connection,
