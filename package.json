@@ -1,7 +1,7 @@
 {
   "name": "@reactive-commons/messaging",
   "version": "1.0.0",
-  "description": "",
+  "description": "Set of abstractions and implementations over different patterns and practices that make the foundation of a reactive microservices architecture",
   "keywords": [],
   "main": "dist/index.umd.js",
   "module": "dist/index.es5.js",
