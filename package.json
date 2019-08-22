@@ -1,5 +1,5 @@
 {
-  "name": "reactive-commons",
+  "name": "@reactive-commons/messaging",
   "version": "0.0.0-development",
   "description": "",
   "keywords": [],
@@ -15,6 +15,9 @@
     "url": "https://github.com/reactive-commons/reactive-commons-js"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=6.0.0"
   },
@@ -65,14 +68,6 @@
       "/node_modules/",
       "/test/"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
     "collectCoverageFrom": [
       "src/**/*.{js,ts}"
     ]
@@ -89,6 +84,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.16",
     "@types/amqp-connection-manager": "^2.0.4",
     "@types/amqplib": "^0.5.13",
     "@types/jest": "^24.0.17",
