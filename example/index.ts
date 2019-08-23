@@ -1,6 +1,6 @@
 import { AmqpBroker, HandlerRegistry, createEvent, ReactiveCommons } from '../src/'
 
-const broker = new AmqpBroker('amqp://user:MxWKtXejdv62tB8w@dev.rabbitmq.hibot.us/local')
+const broker = new AmqpBroker('amqp://localhost')
 const registry = HandlerRegistry.register()
 const app = new ReactiveCommons(broker, registry, {
   appName: 'microTest'
