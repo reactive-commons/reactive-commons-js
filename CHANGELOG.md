@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/reactive-commons/reactive-commons-js/compare/v1.3.0...v1.3.1) (2019-09-09)
+
+
+### Bug Fixes
+
+* **module:** export reactive commons context ([cd23725](https://github.com/reactive-commons/reactive-commons-js/commit/cd23725))
+
 # [1.3.0](https://github.com/reactive-commons/reactive-commons-js/compare/v1.2.0...v1.3.0) (2019-09-09)
 
 
