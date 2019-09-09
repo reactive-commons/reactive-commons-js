@@ -1,5 +1,6 @@
 import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
+import builtins from 'builtin-modules';
 
 const pkg = require('./package.json')
 const dependencies = Object.keys(pkg.dependencies || {});
@@ -14,8 +15,7 @@ export default {
   ],
   external: [
     ...dependencies,
-    'events',
-    'url'
+    ...builtins,
   ],
   watch: {
     include: 'src/**'
