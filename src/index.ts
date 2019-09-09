@@ -5,6 +5,7 @@ export { AmqpSender } from './adapter/amqp/amqp-sender'
 export { HandlerRegistry } from './domain/api/handler-registry'
 export { createCommand, createEvent, createQuery } from './domain/api/message-factory'
 export { ReactiveCommons } from './domain/api/reactive-commons'
+export { ReactiveCommonsContext } from './domain/api/reactive-commons-context'
 export { Message } from './domain/model/broker.model'
 export { Command, Event, Query } from './domain/model/messages.model'
 export {
