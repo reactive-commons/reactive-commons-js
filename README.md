@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/reactive-commons/reactive-commons-js.svg?branch=master)](https://travis-ci.org/reactive-commons/reactive-commons-js)
+[![NPM Version](https://img.shields.io/npm/v/@reactive-commons/messaging)](https://www.npmjs.com/package/@reactive-commons/messaging)
 # reactive-commons-js
 The purpose of reactive-commons is to provide a set of abstractions and implementations over different patterns and practices that make the foundation of a reactive microservices architecture.
 
