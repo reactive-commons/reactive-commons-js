@@ -1,4 +1,4 @@
-import { AmqpBroker, HandlerRegistry, createEvent, ReactiveCommons } from '../src/'
+import { AmqpBroker, HandlerRegistry, createEvent, ReactiveCommons, createQuery } from '../src/'
 
 const broker = new AmqpBroker('amqp://localhost')
 const registry = HandlerRegistry.register()
@@ -27,6 +27,13 @@ app
     context.eventBus
       .emit(appCreated('133', 'myApp'))
       .then(() => console.log('this will succeed'))
+      .catch(err => console.error(err))
+
+    const getResponse = createQuery<string>('anotherApp.getResponse')
+
+    context.directGateway
+      .requestReply(getResponse('123', 'myId'), 'anotherApp')
+      .then(response => console.log(response))
       .catch(err => console.error(err))
   })
   .catch(err => console.error('Error initializing app', err))

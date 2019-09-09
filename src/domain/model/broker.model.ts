@@ -1,5 +1,4 @@
 import { BindingSpecification, QueueSpecitication, TopicSpecification } from './resources.model'
-import { EventBus } from '../api/emitters/event-bus'
 
 export interface Connection {
   id: string
