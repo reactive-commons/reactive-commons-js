@@ -14,6 +14,7 @@ jobs:
       node_js: lts/*
       script:
         - npm run test:prod
+        - npm run report-coverage
     - stage: release
       node_js: lts/*
       deploy:
