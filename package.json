@@ -89,7 +89,7 @@
     "@types/amqp-connection-manager": "^2.0.4",
     "@types/amqplib": "^0.5.13",
     "@types/jest": "^24.0.17",
-    "@types/node": "^12.7.12",
+    "@types/node": "^13.5.0",
     "@types/uuid": "^3.4.5",
     "builtin-modules": "^3.1.0",
     "colors": "^1.4.0",
