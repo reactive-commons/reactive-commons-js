@@ -107,7 +107,7 @@
     "prompt": "^1.0.0",
     "replace-in-file": "^4.1.1",
     "rimraf": "^3.0.0",
-    "rollup": "^1.23.1",
+    "rollup": "^2.0.4",
     "rollup-plugin-typescript2": "^0.24.3",
     "semantic-release": "^15.13.21",
     "shelljs": "^0.8.3",
