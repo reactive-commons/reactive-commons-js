@@ -88,7 +88,7 @@
     "@semantic-release/git": "^7.0.18",
     "@types/amqp-connection-manager": "^2.0.10",
     "@types/amqplib": "^0.5.13",
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^26.0.7",
     "@types/node": "^12.12.53",
     "@types/uuid": "^3.4.9",
     "builtin-modules": "^3.1.0",
