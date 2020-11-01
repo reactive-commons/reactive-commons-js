@@ -107,7 +107,7 @@
     "replace-in-file": "^6.1.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-typescript2": "^0.29.0",
     "semantic-release": "^17.1.1",
     "shelljs": "^0.8.4",
     "ts-jest": "^26.1.4",
